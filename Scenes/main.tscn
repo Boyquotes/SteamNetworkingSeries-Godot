@@ -1,0 +1,154 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/joinHostGame.cs" type="Script" id=1]
+[ext_resource path="res://Fonts/babyBlue_converted.tres" type="DynamicFont" id=2]
+
+[node name="main" type="Node2D"]
+
+[node name="Scripts" type="Node" parent="."]
+
+[node name="joinHostGame" type="Node" parent="Scripts"]
+script = ExtResource( 1 )
+
+[node name="GUI" type="Node2D" parent="."]
+
+[node name="divider_1" type="ColorRect" parent="GUI"]
+margin_left = 1017.0
+margin_right = 1022.0
+margin_bottom = 692.0
+color = Color( 0.145098, 0.145098, 0.145098, 1 )
+
+[node name="divider_2" type="ColorRect" parent="GUI"]
+margin_left = 2051.0
+margin_top = 689.0
+margin_right = 2056.0
+margin_bottom = 2741.0
+rect_rotation = 89.9999
+color = Color( 0.145098, 0.145098, 0.145098, 1 )
+
+[node name="joinSection" type="Node2D" parent="GUI"]
+
+[node name="backgroundPanel_join" type="Panel" parent="GUI/joinSection"]
+margin_left = 83.0
+margin_top = 141.0
+margin_right = 951.0
+margin_bottom = 634.0
+
+[node name="joinSectionTitle" type="Label" parent="GUI/joinSection"]
+margin_left = 116.0
+margin_top = 86.0
+margin_right = 921.0
+margin_bottom = 125.0
+custom_fonts/font = ExtResource( 2 )
+text = "Join game"
+align = 1
+
+[node name="joinSectionStatus" type="Label" parent="GUI/joinSection"]
+margin_left = 116.0
+margin_top = 411.427
+margin_right = 921.0
+margin_bottom = 450.427
+custom_fonts/font = ExtResource( 2 )
+text = "Status: IDLE"
+align = 1
+
+[node name="joinSelectedButton" type="Button" parent="GUI/joinSection"]
+margin_left = 107.0
+margin_top = 516.0
+margin_right = 926.0
+margin_bottom = 610.0
+custom_fonts/font = ExtResource( 2 )
+disabled = true
+text = "Join selected..."
+
+[node name="invitationTree" type="Tree" parent="GUI/joinSection"]
+margin_left = 112.0
+margin_top = 173.279
+margin_right = 919.0
+margin_bottom = 387.279
+custom_fonts/font = ExtResource( 2 )
+columns = 2
+select_mode = 1
+
+[node name="hostSection" type="Node2D" parent="GUI"]
+
+[node name="backgroundPanel_host" type="Panel" parent="GUI/hostSection"]
+margin_left = 1093.01
+margin_top = 141.0
+margin_right = 1961.01
+margin_bottom = 634.0
+
+[node name="hostSectionTitle" type="Label" parent="GUI/hostSection"]
+margin_left = 1130.0
+margin_top = 86.0
+margin_right = 1935.0
+margin_bottom = 125.0
+custom_fonts/font = ExtResource( 2 )
+text = "Host game"
+align = 1
+
+[node name="hostSectionStatus" type="Label" parent="GUI/hostSection"]
+margin_left = 1125.92
+margin_top = 411.427
+margin_right = 1930.92
+margin_bottom = 450.427
+custom_fonts/font = ExtResource( 2 )
+text = "Status: IDLE"
+align = 1
+
+[node name="continueGameButton" type="Button" parent="GUI/hostSection"]
+margin_left = 1117.93
+margin_top = 516.0
+margin_right = 1936.93
+margin_bottom = 610.0
+custom_fonts/font = ExtResource( 2 )
+disabled = true
+text = "Continue game..."
+
+[node name="startHostingButton" type="Button" parent="GUI/hostSection"]
+margin_left = 1118.0
+margin_top = 173.0
+margin_right = 1937.0
+margin_bottom = 385.0
+custom_fonts/font = ExtResource( 2 )
+text = "Start hosting new game"
+
+[node name="chatSection" type="Node2D" parent="GUI"]
+
+[node name="backgroundPanel_chat" type="Panel" parent="GUI/chatSection"]
+margin_left = 82.0
+margin_top = 782.36
+margin_right = 1961.0
+margin_bottom = 1129.36
+
+[node name="lobbySectionTitle" type="Label" parent="GUI/chatSection"]
+margin_left = 615.758
+margin_top = 727.381
+margin_right = 1420.76
+margin_bottom = 766.381
+custom_fonts/font = ExtResource( 2 )
+text = "Lobby chat"
+align = 1
+
+[node name="chatField" type="LineEdit" parent="GUI/chatSection"]
+margin_left = 112.0
+margin_top = 995.232
+margin_right = 1936.0
+margin_bottom = 1098.23
+custom_fonts/font = ExtResource( 2 )
+editable = false
+placeholder_text = "  >> Say something..."
+
+[node name="chatBox" type="RichTextLabel" parent="GUI/chatSection"]
+margin_left = 115.0
+margin_top = 802.232
+margin_right = 1934.0
+margin_bottom = 975.232
+custom_fonts/normal_font = ExtResource( 2 )
+text = ">> The chat is empty..."
+scroll_following = true
+[connection signal="pressed" from="GUI/joinSection/joinSelectedButton" to="Scripts/joinHostGame" method="_on_joinSelectedButton_pressed"]
+[connection signal="item_selected" from="GUI/joinSection/invitationTree" to="Scripts/joinHostGame" method="_on_invitationTree_item_selected"]
+[connection signal="nothing_selected" from="GUI/joinSection/invitationTree" to="Scripts/joinHostGame" method="_on_invitationTree_nothing_selected"]
+[connection signal="pressed" from="GUI/hostSection/startHostingButton" to="Scripts/joinHostGame" method="_on_startHostingButton_pressed"]
+[connection signal="text_entered" from="GUI/chatSection/chatField" to="Scripts/joinHostGame" method="_on_chatField_text_entered"]
