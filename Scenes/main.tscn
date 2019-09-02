@@ -98,9 +98,9 @@ align = 1
 
 [node name="continueGameButton" type="Button" parent="GUI/hostSection"]
 margin_left = 1117.93
-margin_top = 516.0
+margin_top = 517.432
 margin_right = 1936.93
-margin_bottom = 610.0
+margin_bottom = 611.432
 custom_fonts/font = ExtResource( 2 )
 disabled = true
 text = "Continue game..."

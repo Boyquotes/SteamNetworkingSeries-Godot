@@ -77,6 +77,9 @@ public class joinHostGame : Node
             startHostingButton.Disabled = false;
             startHostingButton.Text = "Cancel hosting";
             lobbyID = (CSteamID)lobby.m_ulSteamIDLobby;
+
+            // Set global value
+            global.player1 = SteamUser.GetSteamID();
         }
         else
             hostSectionStatus.Text = "Failed to create lobby.\nReason: " + lobby.m_eResult;
@@ -93,9 +96,15 @@ public class joinHostGame : Node
             lobbyID = (CSteamID)entrance.m_ulSteamIDLobby;
             GD.Print("You just entered lobby " + entrance.m_ulSteamIDLobby + " as host.");
         }
-
         else if (!global.playingAsHost)
+        {
             GD.Print("You just entered lobby " + entrance.m_ulSteamIDLobby);
+
+            // Set global values
+            global.player1 = SteamMatchmaking.GetLobbyOwner((CSteamID)entrance.m_ulSteamIDLobby);
+            global.player2 = SteamUser.GetSteamID();
+        }
+
     }
 
     // ----------------------- JOINING A LOBBY -----------------------
@@ -144,6 +153,9 @@ public class joinHostGame : Node
     private void OnLobbyChatUpdate(LobbyChatUpdate_t update)
     {
         chatBox.AddText("\n" + SteamFriends.GetFriendPersonaName((CSteamID)update.m_ulSteamIDUserChanged) + " made a change in the lobby. Change: " + update.m_rgfChatMemberStateChange);
+
+        // Set global value
+        global.player2 = (CSteamID)update.m_ulSteamIDMakingChange;
     }
 
     // ----------------------- CHAT SECTION -----------------------
@@ -163,6 +175,10 @@ public class joinHostGame : Node
         SteamMatchmaking.GetLobbyChatEntry(global.global_lobbyID, (int)message.m_iChatID, out CSteamID user, messageData, messageData.Length, out EChatEntryType type);
         string messageString = System.Text.Encoding.UTF8.GetString(messageData);
         chatBox.AddText("\n" + SteamFriends.GetFriendPersonaName((CSteamID)message.m_ulSteamIDUser) + ": " + messageString);
+
+        if (messageString.Contains("CONTINUE_SESSION") && (CSteamID)message.m_ulSteamIDUser == global.player1) {
+            GetTree().ChangeScene("Scenes/game.tscn");
+        }
     }
 }
 

@@ -59,8 +59,15 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Global.cs" />
+    <Compile Include="Scripts\initializePlayer.cs" />
     <Compile Include="Scripts\joinHostGame.cs" />
+    <Compile Include="Scripts\packetReceiver.cs" />
+    <Compile Include="Scripts\playerMovement.cs" />
     <Compile Include="Scripts\steamManager.cs" />
+    <Compile Include="Scripts\Schemas\NetworkPacketSchema.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Schemas\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
